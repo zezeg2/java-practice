@@ -1,6 +1,6 @@
 package ch7.board;
 
-public class Member extends Information{
+public class Member extends Information {
     private String email;
     private String phone;
 
@@ -12,6 +12,6 @@ public class Member extends Information{
 
     @Override
     public String print() {
-        return super.print() + String.format("%s : %s",email,phone);
+        return super.print() + String.format("%s : %s", email, phone);
     }
 }

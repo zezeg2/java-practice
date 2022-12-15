@@ -1,6 +1,6 @@
 package ch7.board;
 
-public class Board extends Information{
+public class Board extends Information {
     private String content;
     private int viewCount;
 
@@ -12,6 +12,6 @@ public class Board extends Information{
 
     @Override
     public String print() {
-        return super.print() + String.format("%s : %d",content, viewCount);
+        return super.print() + String.format("%s : %d", content, viewCount);
     }
 }

@@ -11,15 +11,15 @@ public class InformationList {
         this.length = length;
         informationList = new Information[length];
     }
+
     public void add(Information information) {
         if (count >= length) {
             return;
         }
         informationList[count++] = information;
-//        count++;
     }
 
-    public void read(){
+    public void read() {
         Arrays.stream(informationList).forEach(info -> {
             System.out.println(info.print());
         });

@@ -8,7 +8,8 @@ public class Information {
         this.id = id;
         this.name = name;
     }
-    public String print(){
-        return String.format("%s : %s : ",id,name);
+
+    public String print() {
+        return String.format("%s : %s : ", id, name);
     }
 }
