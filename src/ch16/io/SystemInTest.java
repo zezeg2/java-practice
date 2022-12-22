@@ -1,4 +1,4 @@
-package ch16;
+package ch16.io;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

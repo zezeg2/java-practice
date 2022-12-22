@@ -1,4 +1,4 @@
-package ch16.assign;
+package ch16.io.assign;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,9 +24,9 @@ public class StudentScorePrinter {
             if (!key.equalsIgnoreCase("y")) break;
         }
         FileWriter writer = new FileWriter("src/ch16/student-score.txt");
-        writer.write(String.format("%s%s%s%s%s%s%s\n", "번호 ", "이름", "국어", "수학", "영어", "총점", "평균"));
+        writer.write(String.format("%4s%4s%4s%4s%4s%4s%4s\n", "번호 ", "이름", "국어", "수학", "영어", "총점", "평균"));
         for (Map.Entry<Integer, List<String>> e : infoMap.entrySet()) {
-            writer.write(e.getKey() + " " + e.getValue().stream().reduce("", ((s1, s2) -> s1 + " " + s2)) + "\n");
+            writer.write(e.getKey() + " " + e.getValue().stream().reduce("", ((s1, s2) -> s1 + String.format("%-6s",s2))) + "\n");
         }
         writer.close();
     }

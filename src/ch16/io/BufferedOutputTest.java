@@ -1,4 +1,4 @@
-package ch16;
+package ch16.io;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
