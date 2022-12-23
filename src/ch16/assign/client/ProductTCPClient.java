@@ -13,7 +13,7 @@ public class ProductTCPClient {
         while (true) {
             try (Socket socket = new Socket("localhost", 19999);
                  DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
-                System.out.println("Enroll Product : '1', Search Product : '2', Quit : 'q'");
+                System.out.print("\nEnroll Product : '1', Search Product : '2', Quit : 'q'\n=> ");
                 while (true) {
                     String key = sc.next();
                     if (key.equalsIgnoreCase("q")) break loop;

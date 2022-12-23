@@ -43,7 +43,7 @@ public class ClientRequest {
     public void get(Socket socket) throws IOException {
         try (DataInputStream in = new DataInputStream(socket.getInputStream());
              DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
-            System.out.println("Enter the Product name");
+            System.out.print("Enter the Product name : ");
             out.writeUTF(sc.next());
             System.out.println("Result : " + in.readUTF());
         }
