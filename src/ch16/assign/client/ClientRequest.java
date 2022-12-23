@@ -1,4 +1,6 @@
-package ch16.network.socket.assign;
+package ch16.assign.client;
+
+import ch16.assign.Product;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -11,7 +13,7 @@ import java.util.Scanner;
 
 public class ClientRequest {
     private static ClientRequest instance;
-    private final Scanner sc = new Scanner(System.in);
+    private static Scanner sc = new Scanner(System.in);
 
     public static ClientRequest getInstance() {
         if (instance == null) {
@@ -30,12 +32,11 @@ public class ClientRequest {
             while (true) {
                 products.add(new Product());
                 System.out.println("enter the 'y' to add another product");
-                if (!sc.next().equals("y")) break;
+                if (!sc.next().equalsIgnoreCase("y")) break;
             }
             out.writeUTF(products.stream()
                     .map(product -> String.format("%8s%8s%8s", product.name, product.price, product.stock))
                     .reduce("", (s1, s2) -> s1 + s2 + "\n"));
-            sc.close();
             System.out.println(in.readUTF());
         }
     }
@@ -46,8 +47,6 @@ public class ClientRequest {
             System.out.println("Enter the Product name");
             out.writeUTF(sc.next());
             System.out.println("Result : " + in.readUTF());
-        } catch (EOFException e) {
         }
-
     }
 }

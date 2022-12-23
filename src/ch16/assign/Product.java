@@ -1,4 +1,4 @@
-package ch16.network.socket.assign;
+package ch16.assign;
 
 import java.io.Serializable;
 import java.util.List;
@@ -6,8 +6,9 @@ import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class Product implements Serializable {
-    String name;
-    int price, stock;
+    public String name;
+    public int price, stock;
+
     public Product(String name, int price, int stock) {
         this.name = name;
         this.price = price;

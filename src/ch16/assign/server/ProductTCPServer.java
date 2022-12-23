@@ -1,4 +1,4 @@
-package ch16.network.socket.assign;
+package ch16.assign.server;
 
 import java.io.DataInputStream;
 import java.io.IOException;

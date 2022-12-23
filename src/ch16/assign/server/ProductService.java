@@ -1,4 +1,6 @@
-package ch16.network.socket.assign;
+package ch16.assign.server;
+
+import ch16.assign.Product;
 
 import java.io.*;
 import java.net.Socket;
@@ -14,6 +16,7 @@ public class ProductService {
         }
         return instance;
     }
+
     static List<Product> productList = new CopyOnWriteArrayList<>();
 
     private ProductService() throws IOException {
@@ -25,6 +28,7 @@ public class ProductService {
             productList.add(new Product(element[1], Integer.parseInt(element[2]), Integer.parseInt(element[3])));
         }
     }
+
     public void enroll(Socket socket) throws IOException {
         try (DataInputStream in = new DataInputStream(socket.getInputStream());
              DataOutputStream out = new DataOutputStream(socket.getOutputStream());
@@ -34,13 +38,17 @@ public class ProductService {
             out.writeUTF("Your Product is Successfully Enrolled");
         }
     }
+
     public void search(Socket socket) throws IOException {
         try (DataInputStream in = new DataInputStream(socket.getInputStream());
              DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
             String findKeyword = in.readUTF();
+            String result = "";
             for (Product p : productList.stream().filter(product -> product.name.equals(findKeyword)).toList()) {
-                out.writeUTF(p.toString());
+                result +=  "\n" + p.toString();
             }
+            if (result.equals("")) out.writeUTF("Not Found Product...");
+            out.writeUTF(result);
         }
     }
 }
