@@ -28,7 +28,8 @@ public class ClientRequest {
             if (!sc.next().equals("y")) break;
         }
 
-        out.writeUTF(products.stream().map(product -> String.format("%8s%8s%8s%s", product.name, product.price, product.stock, socket.getLocalSocketAddress().toString()))
+        out.writeUTF(products.stream()
+                .map(product -> String.format("%8s%8s%8s%20s", product.name, product.price, product.stock, socket.getLocalSocketAddress().toString()))
                 .reduce("", (s1, s2) -> s1 + s2 + "\n"));
         sc.close();
         System.out.println(in.readUTF());

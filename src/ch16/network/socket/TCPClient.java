@@ -5,9 +5,12 @@ import java.net.Socket;
 
 public class TCPClient {
     public static void main(String[] args) throws IOException {
-        Socket socket = new Socket("localhost", 19999);
-        Sender sender = new Sender(socket);
-        Receiver receiver = new Receiver(socket);
+        Sender sender;
+        Receiver receiver;
+        try (Socket socket = new Socket("localhost", 19999)) {
+            sender = new Sender(socket);
+            receiver = new Receiver(socket);
+        }
 
         sender.start();
         receiver.start();
