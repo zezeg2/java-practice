@@ -43,11 +43,20 @@ select *
 from (select substring(hire_date, 6, 2) byMonth, count(hire_date) cnt from employees group by byMonth) sub_tbl
 where sub_tbl.cnt > 10;
 
+select substring(hire_date, 6, 2) byMonth, count(hire_date) cnt
+from employees
+group by byMonth
+having cnt > 10;
+
 -- 7
 select first_name, salary
 from (select first_name, salary, (select salary from employees where employee_id = e.manager_id) man_salary
       from employees e) sub_tbl
 where salary > sub_tbl.man_salary;
+
+select first_name, salary, (select salary from employees where employee_id = e.manager_id) man_salary
+from employees e
+having salary > man_salary;
 
 -- 8
 select first_name, salary, job_title
@@ -67,6 +76,14 @@ from (select country_name, count(employee_id) cnt
       group by country_name) sub_tbl
 where sub_tbl.cnt > 3;
 
+select country_name, count(employee_id) cnt
+from employees
+         join departments d on employees.department_id = d.department_id
+         join locations l on l.location_id = d.location_id
+         join countries c on l.country_id = c.country_id
+group by country_name
+having cnt > 3;
+
 -- 10
 select e1.phone_number, e1.email, ifnull(e2.phone_number, '관리자없음'), ifnull(e2.email, '관리자없음')
 from employees e1
@@ -80,10 +97,22 @@ from (select d.department_id, min(salary) min_salary, max(salary) max_salary
       group by department_name) sub_tbl
 where sub_tbl.min_salary != sub_tbl.max_salary;
 
+select d.department_id, min(salary) min_salary, max(salary) max_salary
+from employees
+         join departments d on employees.department_id = d.department_id
+group by department_name
+having min_salary != max_salary;
+
 -- 12
 select *
-from (select e.department_id, e.job_id, avg(salary) avg_sal
+from (select e.department_id, e.job_id, avg(salary) avg_salary
       from employees e
                join jobs j on e.job_id = j.job_id
       group by e.department_id, e.job_id) sub_tbl
-where sub_tbl.avg_sal > (select avg(salary) from employees where department_id = 50);
+where sub_tbl.avg_salary > (select avg(salary) from employees where department_id = 50);
+
+select e.department_id, e.job_id, avg(salary) avg_salary
+from employees e
+         join jobs j on e.job_id = j.job_id
+group by e.department_id, e.job_id
+having avg_salary > (select avg(salary) from employees where department_id = 50);
