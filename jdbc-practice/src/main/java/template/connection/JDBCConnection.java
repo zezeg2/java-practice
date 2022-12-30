@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import static template.connection.ConnectionInform.*;
 
-public class MyConnection {
+public class JDBCConnection {
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
     }

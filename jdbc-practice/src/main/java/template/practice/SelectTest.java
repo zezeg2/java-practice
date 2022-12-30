@@ -1,13 +1,13 @@
 package template.practice;
 
-import template.connection.MyConnection;
+import template.connection.JDBCConnection;
 
 import java.sql.*;
 
 public class SelectTest {
 
     public static void main(String[] args) {
-        try (Connection con = MyConnection.getConnection();
+        try (Connection con = JDBCConnection.getConnection();
              Statement st = con.createStatement()){
 
             String sql = "SELECT employee_id, first_name, last_name, salary, hire_date FROM employees";
