@@ -1,7 +1,7 @@
 create user jdbc@'%' identified by 'jdbc';
 create database memberdb;
 grant all privileges on memberdb.* to jdbc@'%';
-
+use memberdb;
 create table member (
     id varchar(10) primary key,
     pw varchar(10)  not null,

@@ -1,23 +1,22 @@
 package template.domain.member.view;
 
-import template.domain.member.dtos.CreateMemberDTO;
+import template.domain.member.dtos.MemberDTO;
 
-import java.util.Scanner;
+import java.sql.SQLException;
 
-public class CreateMemberViewImpl implements View<CreateMemberDTO> {
+public class CreateMemberViewImpl implements View {
     private static CreateMemberViewImpl instance;
 
     private CreateMemberViewImpl() {
     }
 
     public static CreateMemberViewImpl getInstance(){
-        if (instance == null) return new CreateMemberViewImpl();
+        if (instance == null) instance = new CreateMemberViewImpl();
         return instance;
     }
-
     @Override
-    public CreateMemberDTO input(Scanner sc) {
-        CreateMemberDTO member = new CreateMemberDTO();
+    public void run() throws SQLException {
+        MemberDTO member = new MemberDTO();
         System.out.print("아이디 입력 > ");
         member.setId(sc.next());
         System.out.print("패스워드 입력 > ");
@@ -30,6 +29,6 @@ public class CreateMemberViewImpl implements View<CreateMemberDTO> {
         member.setPhone(sc.next());
         System.out.print("주소 입력 > ");
         member.setAddress(sc.next());
-        return member;
+        dao.createMember(member);
     }
 }

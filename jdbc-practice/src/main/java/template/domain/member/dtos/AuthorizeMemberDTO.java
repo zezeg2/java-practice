@@ -1,11 +1,14 @@
 package template.domain.member.dtos;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class AuthorizeMemberDTO {
     private String id;
     private String pw;
 }
+

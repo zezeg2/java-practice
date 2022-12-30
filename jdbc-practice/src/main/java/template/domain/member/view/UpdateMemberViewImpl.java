@@ -1,41 +1,44 @@
 package template.domain.member.view;
 
-import template.domain.member.dao.MemberDAO;
 import template.domain.member.dtos.AuthorizeMemberDTO;
-import template.domain.member.dtos.InfoMemberDTO;
+import template.domain.member.dtos.MemberDTO;
 import template.domain.member.dtos.UpdateMemberDTO;
 
-import java.util.Scanner;
+import java.sql.SQLException;
 
-public class UpdateMemberViewImpl implements View<UpdateMemberDTO> {
+public class UpdateMemberViewImpl implements View {
     private static UpdateMemberViewImpl instance;
 
     private UpdateMemberViewImpl() {
     }
 
-    public static UpdateMemberViewImpl getInstance(){
-        if (instance == null) return new UpdateMemberViewImpl();
+    public static UpdateMemberViewImpl getInstance() {
+        if (instance == null) instance = new UpdateMemberViewImpl();
         return instance;
     }
-    public UpdateMemberDTO input(Scanner sc) {
-        AuthorizeMemberDTO authMember = GetMemberInfoViewImpl.getInstance().input(sc);
-        MemberDAO memberDAO = new MemberDAO();
-        InfoMemberDTO prevMember = memberDAO.getMember(authMember);
-        if (prevMember == null) return null;
-        UpdateMemberDTO updateInfo = new UpdateMemberDTO();
-        System.out.print("스킵하려면 Press Enter > ");
+
+    public void run() throws SQLException {
+        AuthorizeMemberDTO member = new AuthorizeMemberDTO();
+        System.out.print("아이디 입력 > ");
+        member.setId(sc.next());
+        System.out.print("패스워드 입력 > ");
+        member.setPw(sc.next());
+        MemberDTO origin = dao.getMember(member);
+        UpdateMemberDTO updateMemberDTO = new UpdateMemberDTO();
+        updateMemberDTO.setId(origin.getId());
+        System.out.println("재설정할 항목을 입력해주세요 (enter 'p'-> 다음항목)");
         System.out.print("새로운 패스워드 입력 > ");
-        updateInfo.setPw(sc.next());
+        updateMemberDTO.setPw(maintainOrGet(sc.next(), origin.getPw()));
         System.out.print("새로운 이메일 입력 > ");
-        updateInfo.setEmail(sc.next());
+        updateMemberDTO.setEmail(maintainOrGet(sc.next(), origin.getEmail()));
         System.out.print("새로운 휴대전화 입력 > ");
-        updateInfo.setPhone(sc.next());
+        updateMemberDTO.setPhone(maintainOrGet(sc.next(), origin.getPhone()));
         System.out.print("새로운 주소 입력 > ");
-        updateInfo.setAddress(sc.next());
-        if (!updateInfo.getPw().equals("")) prevMember.setPw(updateInfo.getPw());
-        if (!updateInfo.getEmail().equals(""))prevMember.setEmail(updateInfo.getEmail());
-        if (!updateInfo.getPhone().equals(""))prevMember.setPhone(updateInfo.getPhone());
-        if (!updateInfo.getAddress().equals(""))prevMember.setAddress(updateInfo.getAddress());
-        return updateInfo;
+        updateMemberDTO.setAddress(maintainOrGet(sc.next(), origin.getAddress()));
+        dao.updateMember(updateMemberDTO);
+    }
+
+    private String maintainOrGet(String s1, String s2) {
+        return s1.equals("p") ? s2 : s1;
     }
 }
