@@ -1,17 +1,23 @@
 package template.domain.member.view;
 
-import template.domain.member.dtos.MemberDTO;
+import template.domain.member.dtos.CreateMemberDTO;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Scanner;
 
-public class MemberInsertViewImpl implements View {
-    MemberDTO member;
+public class CreateMemberViewImpl implements View<CreateMemberDTO> {
+    private static CreateMemberViewImpl instance;
+
+    private CreateMemberViewImpl() {
+    }
+
+    public static CreateMemberViewImpl getInstance(){
+        if (instance == null) return new CreateMemberViewImpl();
+        return instance;
+    }
+
     @Override
-    public MemberDTO input() {
-        Scanner sc = new Scanner(System.in);
-        member = new MemberDTO();
+    public CreateMemberDTO input(Scanner sc) {
+        CreateMemberDTO member = new CreateMemberDTO();
         System.out.print("아이디 입력 > ");
         member.setId(sc.next());
         System.out.print("패스워드 입력 > ");
@@ -24,7 +30,6 @@ public class MemberInsertViewImpl implements View {
         member.setPhone(sc.next());
         System.out.print("주소 입력 > ");
         member.setAddress(sc.next());
-        member.setIndate(Date.valueOf(LocalDate.now()).toString());
         return member;
     }
 }

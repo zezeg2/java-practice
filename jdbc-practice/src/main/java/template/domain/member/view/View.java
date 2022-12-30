@@ -1,7 +1,7 @@
 package template.domain.member.view;
 
-import template.domain.member.dtos.MemberDTO;
+import java.util.Scanner;
 
-public interface View {
-    MemberDTO input();
+public interface View<T> {
+    T input(Scanner sc);
 }

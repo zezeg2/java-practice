@@ -17,3 +17,7 @@ insert into member(id,pw,name,email,phone,address,indate) value (?,?,?,?,?,?,?);
 commit;
 use memberdb;
 select * from member;
+
+commit;
+
+SELECT COUNT(*) FROM member;
