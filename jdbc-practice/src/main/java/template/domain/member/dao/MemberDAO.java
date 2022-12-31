@@ -30,10 +30,10 @@ public class MemberDAO {
         String sql = "SELECT EXISTS(SELECT 1 FROM member WHERE id = ?)";
         try (Connection con = JDBCConnection.getConnection();
              PreparedStatement pt = con.prepareStatement(sql)) {
-            pt.setString(1,id);
+            pt.setString(1, id);
             ResultSet rs = pt.executeQuery();
             rs.next();
-            if(rs.getInt(1) == 1) return true;
+            if (rs.getInt(1) == 1) return true;
             return false;
         }
     }
@@ -42,10 +42,10 @@ public class MemberDAO {
         String sql = "SELECT EXISTS(SELECT 1 FROM member WHERE email = ?)";
         try (Connection con = JDBCConnection.getConnection();
              PreparedStatement pt = con.prepareStatement(sql)) {
-            pt.setString(1,email);
+            pt.setString(1, email);
             ResultSet rs = pt.executeQuery();
             rs.next();
-            if(rs.getInt(1) == 1) return true;
+            if (rs.getInt(1) == 1) return true;
             return false;
         }
     }
@@ -71,7 +71,7 @@ public class MemberDAO {
             ResultSet rs = st.executeQuery(sql);
             rs.next();
             int totalCnt = rs.getInt(1);
-            return totalCnt / COUNT_PER_PAGE + 1;
+            return (totalCnt - 1) / COUNT_PER_PAGE + 1;
         }
     }
 

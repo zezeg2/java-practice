@@ -37,10 +37,6 @@ public class CreateMemberViewImpl implements View {
         String phone = sc.next();
         System.out.print("주소 입력 > ");
         String address = sc.next();
-        if (dao.isExistEmail(email)) {
-            System.out.println("이미 존재하는 이메일 입니다.");
-            return;
-        }
         dao.createMember(new MemberDTO(id, pw, name, email, phone, address));
         System.out.println("회원 등록 완료");
     }
