@@ -11,7 +11,6 @@ import template.domain.member.exceptions.MemberNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class MemberDAO {
     private static MemberDAO instance;
@@ -33,8 +32,7 @@ public class MemberDAO {
             pt.setString(1, id);
             ResultSet rs = pt.executeQuery();
             rs.next();
-            if (rs.getInt(1) == 1) return true;
-            return false;
+            return rs.getInt(1) == 1;
         }
     }
 
@@ -45,15 +43,14 @@ public class MemberDAO {
             pt.setString(1, email);
             ResultSet rs = pt.executeQuery();
             rs.next();
-            if (rs.getInt(1) == 1) return true;
-            return false;
+            return rs.getInt(1) == 1;
         }
     }
 
     public void createMember(MemberDTO dto) throws SQLException {
         String sql = "INSERT INTO member (id, pw, name, email, phone, address, indate) VALUES (?,?,?,?,?,?,now())";
         try (Connection con = JDBCConnection.getConnection();
-             PreparedStatement pt = Objects.requireNonNull(con).prepareStatement(sql)) {
+             PreparedStatement pt = con.prepareStatement(sql)) {
             pt.setString(1, dto.getId());
             pt.setString(2, dto.getPw());
             pt.setString(3, dto.getName());
@@ -79,7 +76,7 @@ public class MemberDAO {
         List<InfoMemberDTO> memberList = new ArrayList<>();
         String sql = "SELECT * FROM member ORDER BY indate LIMIT ? OFFSET ?";
         try (Connection con = JDBCConnection.getConnection();
-             PreparedStatement pt = Objects.requireNonNull(con).prepareStatement(sql)) {
+             PreparedStatement pt = con.prepareStatement(sql)) {
 
             int startIndex = COUNT_PER_PAGE * (page - 1);
             pt.setInt(1, COUNT_PER_PAGE);
@@ -108,7 +105,7 @@ public class MemberDAO {
     public void updateMember(UpdateMemberDTO dto) throws SQLException {
         String sql = "UPDATE member SET pw = ?, email = ?, phone = ?, address = ? WHERE id = ?";
         try (Connection con = JDBCConnection.getConnection();
-             PreparedStatement pt = Objects.requireNonNull(con).prepareStatement(sql)) {
+             PreparedStatement pt = con.prepareStatement(sql)) {
             pt.setString(1, dto.getPw());
             pt.setString(2, dto.getEmail());
             pt.setString(3, dto.getPhone());
@@ -121,7 +118,7 @@ public class MemberDAO {
     public void deleteMember(String id) throws SQLException {
         String sql = "DELETE FROM member WHERE id = ?";
         try (Connection con = JDBCConnection.getConnection();
-             PreparedStatement pt = Objects.requireNonNull(con).prepareStatement(sql)) {
+             PreparedStatement pt = con.prepareStatement(sql)) {
             pt.setString(1, id);
             pt.executeQuery();
         }
@@ -130,7 +127,7 @@ public class MemberDAO {
     public MemberDTO getMember(AuthorizeMemberDTO dto) throws SQLException {
         String sql = "SELECT id, pw, name, phone, email, address, indate FROM member WHERE id = ?";
         try (Connection con = JDBCConnection.getConnection();
-             PreparedStatement pt = Objects.requireNonNull(con).prepareStatement(sql)) {
+             PreparedStatement pt = con.prepareStatement(sql)) {
             pt.setString(1, dto.getId());
             ResultSet rs = pt.executeQuery();
             if (rs.next()) {
