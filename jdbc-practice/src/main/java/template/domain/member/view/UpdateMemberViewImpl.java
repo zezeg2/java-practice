@@ -24,18 +24,23 @@ public class UpdateMemberViewImpl implements View {
         System.out.print("패스워드 입력 > ");
         member.setPw(sc.next());
         MemberDTO origin = dao.getMember(member);
-        UpdateMemberDTO updateMemberDTO = new UpdateMemberDTO();
-        updateMemberDTO.setId(origin.getId());
+
         System.out.println("재설정할 항목을 입력해주세요 (enter 'p'-> 다음항목)");
-        System.out.print("새로운 패스워드 입력 > ");
-        updateMemberDTO.setPw(maintainOrGet(sc.next(), origin.getPw()));
         System.out.print("새로운 이메일 입력 > ");
-        updateMemberDTO.setEmail(maintainOrGet(sc.next(), origin.getEmail()));
+        String tempEmail = sc.next();
+        if (dao.isExistEmail(tempEmail)) {
+            System.out.println("이미 존재하는 이메일 입니다.");
+            return;
+        }
+        String email = maintainOrGet(tempEmail, origin.getEmail());
+        System.out.print("새로운 패스워드 입력 > ");
+        String pw = maintainOrGet(sc.next(), origin.getPw());
         System.out.print("새로운 휴대전화 입력 > ");
-        updateMemberDTO.setPhone(maintainOrGet(sc.next(), origin.getPhone()));
+        String phone = maintainOrGet(sc.next(), origin.getPhone());
         System.out.print("새로운 주소 입력 > ");
-        updateMemberDTO.setAddress(maintainOrGet(sc.next(), origin.getAddress()));
-        dao.updateMember(updateMemberDTO);
+        String address = maintainOrGet(sc.next(), origin.getAddress());
+        dao.updateMember(new UpdateMemberDTO(origin.getId(), pw, email, phone, address));
+        System.out.println("유저정보 업데이트에 성공했습니다.");
     }
 
     private String maintainOrGet(String s1, String s2) {

@@ -1,10 +1,8 @@
-package template.practice;
+package practice;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import static template.connection.ConnectionInform.*;
 
 public class MonthEmployee {
     ArrayList<String> getEmployees() {
@@ -13,8 +11,8 @@ public class MonthEmployee {
         ResultSet rs = null;
         ArrayList<String> list = new ArrayList<>();
         try {
-            Class.forName(DRIVER_CLASS);
-            con = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+            Class.forName(ConnectionInform.DRIVER_CLASS);
+            con = DriverManager.getConnection(ConnectionInform.JDBC_URL, ConnectionInform.USERNAME, ConnectionInform.PASSWORD);
             System.out.println("--- JDBC 드라이버 연결 성공");
 
             Scanner key = new Scanner(System.in);

@@ -1,4 +1,4 @@
-package template.practice;
+package practice;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,15 +6,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-import static template.connection.ConnectionInform.*;
 
 public class InsertTest {
 
 	public static void main(String[] args) {
 		Connection con = null;
 		try {
-			Class.forName(DRIVER_CLASS);
-			con =  DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+			Class.forName(ConnectionInform.DRIVER_CLASS);
+			con =  DriverManager.getConnection(ConnectionInform.JDBC_URL, ConnectionInform.USERNAME, ConnectionInform.PASSWORD);
 			System.out.println("연결 성공");
 //			System.out.println(con.getAutoCommit());	자동커밋 여부 확인
 			

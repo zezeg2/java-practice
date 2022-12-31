@@ -1,6 +1,4 @@
-package template.practice;
-
-import template.connection.JDBCConnection;
+package practice;
 
 import java.sql.*;
 

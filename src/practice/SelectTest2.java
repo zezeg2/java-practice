@@ -1,8 +1,6 @@
-package template.practice;
+package practice;
 
 import java.sql.*;
-
-import static template.connection.ConnectionInform.*;
 
 public class SelectTest2 {
     // Statement -> PreparedStatement 로 변경하면서 기존의 Statement 는 삭제
@@ -11,8 +9,8 @@ public class SelectTest2 {
         PreparedStatement pt = null;
         ResultSet rs = null;
         try {
-            Class.forName(DRIVER_CLASS);
-            con = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+            Class.forName(ConnectionInform.DRIVER_CLASS);
+            con = DriverManager.getConnection(ConnectionInform.JDBC_URL, ConnectionInform.USERNAME, ConnectionInform.PASSWORD);
             System.out.println("연결 성공");
 
             String sql = "SELECT user_id, address FROM users WHERE address like ?";

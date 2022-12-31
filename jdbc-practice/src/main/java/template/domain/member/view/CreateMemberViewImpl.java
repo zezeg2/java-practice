@@ -10,25 +10,38 @@ public class CreateMemberViewImpl implements View {
     private CreateMemberViewImpl() {
     }
 
-    public static CreateMemberViewImpl getInstance(){
+    public static CreateMemberViewImpl getInstance() {
         if (instance == null) instance = new CreateMemberViewImpl();
         return instance;
     }
+
     @Override
     public void run() throws SQLException {
-        MemberDTO member = new MemberDTO();
         System.out.print("아이디 입력 > ");
-        member.setId(sc.next());
-        System.out.print("패스워드 입력 > ");
-        member.setPw(sc.next());
-        System.out.print("이름 입력 > ");
-        member.setName(sc.next());
+        String id = sc.next();
+        if (dao.isExistId(id)) {
+            System.out.println("이미 존재하는 id 입니다.");
+            return;
+        }
         System.out.print("이메일 입력 > ");
-        member.setEmail(sc.next());
+        String email = sc.next();
+        if (dao.isExistEmail(email)) {
+            System.out.println("이미 존재하는 이메일 입니다.");
+            return;
+        }
+        System.out.print("패스워드 입력 > ");
+        String pw = sc.next();
+        System.out.print("이름 입력 > ");
+        String name = sc.next();
         System.out.print("휴대전화 입력 > ");
-        member.setPhone(sc.next());
+        String phone = sc.next();
         System.out.print("주소 입력 > ");
-        member.setAddress(sc.next());
-        dao.createMember(member);
+        String address = sc.next();
+        if (dao.isExistEmail(email)) {
+            System.out.println("이미 존재하는 이메일 입니다.");
+            return;
+        }
+        dao.createMember(new MemberDTO(id, pw, name, email, phone, address));
+        System.out.println("회원 등록 완료");
     }
 }

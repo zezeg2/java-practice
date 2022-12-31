@@ -21,3 +21,5 @@ select * from member;
 commit;
 
 SELECT COUNT(*) FROM member;
+
+select exists(select 1 from member where id='zezeg2') as exist;

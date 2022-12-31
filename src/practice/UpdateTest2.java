@@ -1,17 +1,15 @@
-package template.practice;
+package practice;
 
 import java.sql.*;
 import java.util.Scanner;
-
-import static template.connection.ConnectionInform.*;
 
 public class UpdateTest2 {
 	// 이전에 학습한 내용을 지우지 않기 위해서 새로 파일을 만듬
 	public static void main(String[] args) {
 		Connection con = null;
 		try {
-			Class.forName(DRIVER_CLASS);
-			con =  DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+			Class.forName(ConnectionInform.DRIVER_CLASS);
+			con =  DriverManager.getConnection(ConnectionInform.JDBC_URL, ConnectionInform.USERNAME, ConnectionInform.PASSWORD);
 			System.out.println("연결 성공");
 			System.out.println("--- JDBC UPDATE TEST ---");
 			

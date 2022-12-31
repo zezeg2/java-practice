@@ -25,5 +25,6 @@ public class DeleteMemberViewImpl implements View {
         member.setPw(sc.next());
         MemberDTO authMember = dao.getMember(member);
         dao.deleteMember(authMember.getId());
+        System.out.println("유저정보가 삭제되었습니다.");
     }
 }

@@ -23,7 +23,32 @@ public class MemberDAO {
 
     private final int COUNT_PER_PAGE = 3;
 
-    private MemberDAO() {}
+    private MemberDAO() {
+    }
+
+    public boolean isExistId(String id) throws SQLException {
+        String sql = "SELECT EXISTS(SELECT 1 FROM member WHERE id = ?)";
+        try (Connection con = JDBCConnection.getConnection();
+             PreparedStatement pt = con.prepareStatement(sql)) {
+            pt.setString(1,id);
+            ResultSet rs = pt.executeQuery();
+            rs.next();
+            if(rs.getInt(1) == 1) return true;
+            return false;
+        }
+    }
+
+    public boolean isExistEmail(String email) throws SQLException {
+        String sql = "SELECT EXISTS(SELECT 1 FROM member WHERE email = ?)";
+        try (Connection con = JDBCConnection.getConnection();
+             PreparedStatement pt = con.prepareStatement(sql)) {
+            pt.setString(1,email);
+            ResultSet rs = pt.executeQuery();
+            rs.next();
+            if(rs.getInt(1) == 1) return true;
+            return false;
+        }
+    }
 
     public void createMember(MemberDTO dto) throws SQLException {
         String sql = "INSERT INTO member (id, pw, name, email, phone, address, indate) VALUES (?,?,?,?,?,?,now())";
@@ -36,13 +61,13 @@ public class MemberDAO {
             pt.setString(5, dto.getPhone());
             pt.setString(6, dto.getAddress());
             pt.execute();
-            System.out.println("회원 등록 완료");
         }
     }
+
     public int countPage() throws SQLException {
         String sql = "SELECT COUNT(*) FROM member";
-        try(Connection con = JDBCConnection.getConnection();
-            Statement st = con.createStatement()){
+        try (Connection con = JDBCConnection.getConnection();
+             Statement st = con.createStatement()) {
             ResultSet rs = st.executeQuery(sql);
             rs.next();
             int totalCnt = rs.getInt(1);
@@ -50,7 +75,7 @@ public class MemberDAO {
         }
     }
 
-    public void findAllMember(int page) throws SQLException {
+    public List<InfoMemberDTO> getAllMemberInfo(int page) throws SQLException {
         List<InfoMemberDTO> memberList = new ArrayList<>();
         String sql = "SELECT * FROM member ORDER BY indate LIMIT ? OFFSET ?";
         try (Connection con = JDBCConnection.getConnection();
@@ -71,14 +96,15 @@ public class MemberDAO {
                 member.setIndate(rs.getString("indate"));
                 memberList.add(member);
             }
-            memberList.forEach(System.out::println);
+            return memberList;
         }
     }
 
-    public void getMemberInfo(AuthorizeMemberDTO dto) throws SQLException {
+    public InfoMemberDTO getMemberInfo(AuthorizeMemberDTO dto) throws SQLException {
         MemberDTO member = getMember(dto);
-        if (member != null) System.out.println(new InfoMemberDTO(member.getId(), member.getName(), member.getEmail(), member.getPhone(), member.getAddress(), member.getIndate()));
+        return new InfoMemberDTO(member.getId(), member.getName(), member.getEmail(), member.getPhone(), member.getAddress(), member.getIndate());
     }
+
     public void updateMember(UpdateMemberDTO dto) throws SQLException {
         String sql = "UPDATE member SET pw = ?, email = ?, phone = ?, address = ? WHERE id = ?";
         try (Connection con = JDBCConnection.getConnection();
@@ -89,7 +115,6 @@ public class MemberDAO {
             pt.setString(4, dto.getAddress());
             pt.setString(5, dto.getId());
             pt.executeQuery();
-            System.out.println("유저정보 업데이트에 성공했습니다.");
         }
     }
 
@@ -99,7 +124,6 @@ public class MemberDAO {
              PreparedStatement pt = Objects.requireNonNull(con).prepareStatement(sql)) {
             pt.setString(1, id);
             pt.executeQuery();
-            System.out.println("유저정보가 삭제되었습니다.");
         }
     }
 

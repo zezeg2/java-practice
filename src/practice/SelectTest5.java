@@ -1,9 +1,7 @@
-package template.practice;
+package practice;
 
 import java.sql.*;
 import java.util.Scanner;
-
-import static template.connection.ConnectionInform.*;
 
 public class SelectTest5 {
 
@@ -12,8 +10,8 @@ public class SelectTest5 {
 		Statement st = null;
 		ResultSet rs = null;
 		try {
-			Class.forName(DRIVER_CLASS);
-			con =  DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+			Class.forName(ConnectionInform.DRIVER_CLASS);
+			con =  DriverManager.getConnection(ConnectionInform.JDBC_URL, ConnectionInform.USERNAME, ConnectionInform.PASSWORD);
 			System.out.println("연결 성공");
 			st = con.createStatement();
 

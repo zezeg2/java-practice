@@ -1,6 +1,6 @@
-package template.practice;
+package practice;
 
-import template.connection.ConnectionInform;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;

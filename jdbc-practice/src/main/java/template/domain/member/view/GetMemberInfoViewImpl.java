@@ -1,6 +1,7 @@
 package template.domain.member.view;
 
 import template.domain.member.dtos.AuthorizeMemberDTO;
+import template.domain.member.dtos.InfoMemberDTO;
 
 import java.sql.SQLException;
 
@@ -22,6 +23,7 @@ public class GetMemberInfoViewImpl implements View {
         member.setId(sc.next());
         System.out.print("패스워드 입력 > ");
         member.setPw(sc.next());
-        dao.getMemberInfo(member);
+        InfoMemberDTO result = dao.getMemberInfo(member);
+        System.out.println(result);
     }
 }
