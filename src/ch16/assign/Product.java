@@ -1,9 +1,6 @@
 package ch16.assign;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Stream;
 
 public class Product implements Serializable {
     public String name;
@@ -25,13 +22,9 @@ public class Product implements Serializable {
     }
 
     public Product() {
-        Scanner sc = GlobalScanner.getInstance().getScanner();
-        List<String> info = Stream.of("name", "price", "stock").map(s -> {
-            System.out.print(s + " : ");
-            return sc.next();
-        }).toList();
-        name = info.get(0);
-        price = Integer.parseInt(info.get(1));
-        stock = Integer.parseInt(info.get(2));
+        GlobalScanner sc = GlobalScanner.getInstance();
+        name = sc.nextString("name : ");
+        price = sc.nextNum("price : ");
+        stock = sc.nextNum("stock : ");
     }
 }

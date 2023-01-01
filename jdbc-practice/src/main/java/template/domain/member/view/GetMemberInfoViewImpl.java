@@ -18,11 +18,7 @@ public class GetMemberInfoViewImpl implements View {
 
     @Override
     public void run() throws SQLException {
-        AuthorizeMemberDTO member = new AuthorizeMemberDTO();
-        System.out.print("아이디 입력 > ");
-        member.setId(sc.next());
-        System.out.print("패스워드 입력 > ");
-        member.setPw(sc.next());
+        AuthorizeMemberDTO member = new AuthorizeMemberDTO(sc.nextString("아이디 입력 > "), sc.nextString("패스워드 입력 > "));
         InfoMemberDTO result = dao.getMemberInfo(member);
         System.out.println(result);
     }

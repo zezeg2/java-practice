@@ -35,7 +35,7 @@ public class ClientRequest {
                 if (!sc.next().equalsIgnoreCase("y")) break;
             }
             out.writeUTF(products.stream()
-                    .map(product -> String.format("%8s%8s%8s", product.name, product.price, product.stock))
+                    .map(product -> String.format("%20s%8s%8s", product.name, product.price, product.stock))
                     .reduce("", (s1, s2) -> s1 + s2 + "\n"));
             System.out.println(in.readUTF());
         }

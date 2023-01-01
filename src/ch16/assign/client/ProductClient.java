@@ -5,27 +5,25 @@ import ch16.assign.GlobalScanner;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Scanner;
 
-public class ProductTCPClient {
+public class ProductClient {
     public static void main(String[] args) throws IOException {
         ClientRequest request = ClientRequest.getInstance();
-        Scanner sc = GlobalScanner.getInstance().getScanner();
+        GlobalScanner sc = GlobalScanner.getInstance();
         loop:
         while (true) {
             try (Socket socket = new Socket("localhost", 19999);
                  DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
-                System.out.print("\nEnroll Product : '1', Search Product : '2', Quit : 'q'\n=> ");
                 while (true) {
-                    String key = sc.next();
-                    if (key.equalsIgnoreCase("q")) break loop;
-                    if (key.equals("1")) {
-                        out.writeUTF(key);
+                    int key =  sc.nextNumOrCheckReplace("\nEnroll Product : '1', Search Product : '2', Quit : 'q'\n=> ", "q", 0);
+                    if (key == 0) break loop;
+                    if (key == 1) {
+                        out.writeInt(key);
                         request.post(socket);
                         break;
                     }
-                    if (key.equals("2")) {
-                        out.writeUTF(key);
+                    if (key == 2) {
+                        out.writeInt(key);
                         request.get(socket);
                         break;
                     }

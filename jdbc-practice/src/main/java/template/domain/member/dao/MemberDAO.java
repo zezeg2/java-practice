@@ -128,10 +128,10 @@ public class MemberDAO {
         String sql = "SELECT id, pw, name, phone, email, address, indate FROM member WHERE id = ?";
         try (Connection con = JDBCConnection.getConnection();
              PreparedStatement pt = con.prepareStatement(sql)) {
-            pt.setString(1, dto.getId());
+            pt.setString(1, dto.id());
             ResultSet rs = pt.executeQuery();
             if (rs.next()) {
-                if (rs.getString("pw").equals(dto.getPw())) {
+                if (rs.getString("pw").equals(dto.pw())) {
                     MemberDTO member = new MemberDTO();
                     member.setId(rs.getString("id"));
                     member.setPw(rs.getString("pw"));

@@ -18,8 +18,7 @@ public class GetAllMemberInfoViewImpl implements View {
 
     @Override
     public void run() throws SQLException {
-        System.out.printf("페이지 번호 입력 (1 - %d 페이지) > ", dao.countPage());
-        List<InfoMemberDTO> result = dao.getAllMemberInfo(sc.nextInt());
+        List<InfoMemberDTO> result = dao.getAllMemberInfo(sc.nextNum(String.format("페이지 번호 입력 (1 - %d 페이지) > ", dao.countPage())));
         result.forEach(System.out::println);
     }
 }
