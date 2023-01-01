@@ -1,5 +1,7 @@
 package ch16.assign.client;
 
+import ch16.assign.GlobalScanner;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -8,7 +10,7 @@ import java.util.Scanner;
 public class ProductTCPClient {
     public static void main(String[] args) throws IOException {
         ClientRequest request = ClientRequest.getInstance();
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = GlobalScanner.getInstance().getScanner();
         loop:
         while (true) {
             try (Socket socket = new Socket("localhost", 19999);

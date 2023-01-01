@@ -25,7 +25,7 @@ public class Product implements Serializable {
     }
 
     public Product() {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = GlobalScanner.getInstance().getScanner();
         List<String> info = Stream.of("name", "price", "stock").map(s -> {
             System.out.print(s + " : ");
             return sc.next();

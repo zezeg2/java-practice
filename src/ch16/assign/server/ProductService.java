@@ -22,10 +22,9 @@ public class ProductService {
     private ProductService() throws IOException {
         BufferedReader bf = new BufferedReader(new FileReader("product.txt"));
         while (true) {
-            String data = bf.readLine();
-            if (data == null) break;
-            String[] element = data.replaceAll("\\s+", " ").split(" ");
-            productList.add(new Product(element[1], Integer.parseInt(element[2]), Integer.parseInt(element[3])));
+            String line = bf.readLine();
+            if (line == null) break;
+            productList.add(productFromLine(line));
         }
     }
 
@@ -34,7 +33,12 @@ public class ProductService {
              DataOutputStream out = new DataOutputStream(socket.getOutputStream());
              FileWriter writer = new FileWriter("product.txt", true)) {
             String productByLine = in.readUTF();
-            for (String product : productByLine.split("\n")) writer.write(product + "\n");
+            for (String line : productByLine.split("\n")) {
+                writer.write(line + "\n");
+                Product product = productFromLine(line);
+                productList.add(product);
+                System.out.printf("%s : %s enrolled by %s:%s\n",Thread.currentThread().getName(), product, socket.getInetAddress(), socket.getPort());
+            }
             out.writeUTF("Your Product is Successfully Enrolled");
         }
     }
@@ -43,12 +47,17 @@ public class ProductService {
         try (DataInputStream in = new DataInputStream(socket.getInputStream());
              DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
             String findKeyword = in.readUTF();
-            String result = "";
+            StringBuilder result = new StringBuilder();
             for (Product p : productList.stream().filter(product -> product.name.equals(findKeyword)).toList()) {
-                result +=  "\n" + p.toString();
+                result.append("\n").append(p.toString());
             }
-            if (result.equals("")) out.writeUTF("Not Found Product...");
-            out.writeUTF(result);
+            if (result.toString().equals("")) out.writeUTF("Not Found Product...");
+            out.writeUTF(result.toString());
         }
+    }
+
+    private Product productFromLine(String line){
+        String[] element = line.replaceAll("\\s+", " ").split(" ");
+        return new Product(element[1], Integer.parseInt(element[2]), Integer.parseInt(element[3]));
     }
 }

@@ -1,5 +1,6 @@
 package ch16.assign.client;
 
+import ch16.assign.GlobalScanner;
 import ch16.assign.Product;
 
 import java.io.DataInputStream;
@@ -12,7 +13,7 @@ import java.util.Scanner;
 
 public class ClientRequest {
     private static ClientRequest instance;
-    private static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = GlobalScanner.getInstance().getScanner();
 
     public static ClientRequest getInstance() {
         if (instance == null) {
