@@ -17,9 +17,10 @@ public class ProductService {
         return instance;
     }
 
-    static List<Product> productList = new CopyOnWriteArrayList<>();
+    private final List<Product> productList;
 
     private ProductService() throws IOException {
+        productList = new CopyOnWriteArrayList<>();
         BufferedReader bf = new BufferedReader(new FileReader("product.txt"));
         while (true) {
             String line = bf.readLine();

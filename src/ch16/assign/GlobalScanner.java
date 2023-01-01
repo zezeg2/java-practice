@@ -53,6 +53,11 @@ public class GlobalScanner implements Closeable {
         return input.equals(check) ? replace : input;
     }
 
+    public boolean nextStringEqualsWith(String comment, String check){
+        System.out.println(comment);
+        return scanner.next().equals(check);
+    }
+
     @Override
     public void close() {
         scanner.close();

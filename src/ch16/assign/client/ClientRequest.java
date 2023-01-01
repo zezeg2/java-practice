@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class ClientRequest {
     private static ClientRequest instance;
-    private static final Scanner sc = GlobalScanner.getInstance().getScanner();
+    private static final GlobalScanner sc = GlobalScanner.getInstance();
 
     public static ClientRequest getInstance() {
         if (instance == null) {
@@ -31,22 +31,22 @@ public class ClientRequest {
             List<Product> products = new ArrayList<>();
             while (true) {
                 products.add(new Product());
-                System.out.println("enter the 'y' to add another product");
-                if (!sc.next().equalsIgnoreCase("y")) break;
+                if (!sc.nextStringEqualsWith("enter the 'y' to add another product", "y")) break;
             }
             out.writeUTF(products.stream()
                     .map(product -> String.format("%20s%8s%8s", product.name, product.price, product.stock))
                     .reduce("", (s1, s2) -> s1 + s2 + "\n"));
             System.out.println(in.readUTF());
         }
+        socket.close();
     }
 
     public void get(Socket socket) throws IOException {
         try (DataInputStream in = new DataInputStream(socket.getInputStream());
              DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
-            System.out.print("Enter the Product name : ");
-            out.writeUTF(sc.next());
+            out.writeUTF(sc.nextString("Enter the Product name : "));
             System.out.println("Result : " + in.readUTF());
         }
+        socket.close();
     }
 }

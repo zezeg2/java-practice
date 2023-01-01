@@ -11,7 +11,7 @@ import java.net.Socket;
 public class ProductServerThread extends Thread {
 
     private final Socket socket;
-    ProductService service = ProductService.getInstance();
+    private ProductService  service = ProductService.getInstance();
 
     public ProductServerThread(Socket socket) throws IOException {
         this.socket = socket;
