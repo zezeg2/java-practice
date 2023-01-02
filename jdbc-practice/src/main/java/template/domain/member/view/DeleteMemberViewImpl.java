@@ -20,7 +20,7 @@ public class DeleteMemberViewImpl implements View {
     public void run() throws SQLException {
         AuthorizeMemberDTO member = new AuthorizeMemberDTO(sc.nextString("아이디 입력 > "), sc.nextString("패스워드 입력 > "));
         MemberDTO authMember = dao.getMember(member);
-        dao.deleteMember(authMember.getId());
+        dao.deleteMember(authMember.id());
         System.out.println("유저정보가 삭제되었습니다.");
     }
 }

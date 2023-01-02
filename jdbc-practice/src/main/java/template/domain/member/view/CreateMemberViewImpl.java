@@ -32,7 +32,7 @@ public class CreateMemberViewImpl implements View {
         String name = sc.nextString("이름 입력 > ");
         String phone = sc.nextString("휴대전화 입력 > ");
         String address = sc.nextString("주소 입력 > ");
-        dao.createMember(new MemberDTO(id, pw, name, email, phone, address));
+        dao.createMember(new MemberDTO(id, pw, name, email, phone, address, null));
         System.out.println("회원 등록 완료");
     }
 }

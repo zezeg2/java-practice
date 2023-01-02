@@ -27,11 +27,11 @@ public class UpdateMemberViewImpl implements View {
             System.out.println("이미 존재하는 이메일 입니다.");
             return;
         }
-        String email = tempEmail.equals("p") ? origin.getEmail() : tempEmail;
-        String pw = sc.nextStringOrReplace("새로운 패스워드 입력 > ", "p", origin.getPw());
-        String phone = sc.nextStringOrReplace("새로운 휴대전화 입력 > ", "p", origin.getPhone());
-        String address = sc.nextStringOrReplace("새로운 주소 입력 > ", "p", origin.getAddress());
-        dao.updateMember(new UpdateMemberDTO(origin.getId(), pw, email, phone, address));
+        String email = tempEmail.equals("p") ? origin.email() : tempEmail;
+        String pw = sc.nextStringOrReplace("새로운 패스워드 입력 > ", "p", origin.pw());
+        String phone = sc.nextStringOrReplace("새로운 휴대전화 입력 > ", "p", origin.phone());
+        String address = sc.nextStringOrReplace("새로운 주소 입력 > ", "p", origin.address());
+        dao.updateMember(new UpdateMemberDTO(origin.id(), pw, email, phone, address));
         System.out.println("유저정보 업데이트에 성공했습니다.");
     }
 }
