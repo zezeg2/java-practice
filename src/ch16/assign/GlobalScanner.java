@@ -29,7 +29,7 @@ public class GlobalScanner implements Closeable {
         System.out.print(comment);
         while (!scanner.hasNextInt()) {
             scanner.next();
-            System.err.print("올바른 값을 입력해주세요. 재 선택 > ");
+            System.err.print("올바른 값을 입력해주세요. 재 입력 > ");
         }
         return scanner.nextInt();
     }
@@ -43,12 +43,13 @@ public class GlobalScanner implements Closeable {
         System.out.print(comment);
         while (!scanner.hasNextInt()) {
             if (scanner.next().equalsIgnoreCase(check)) return replace;
-            System.err.printf("올바른 값을 입력해주세요 (종료 : '%s') 재 선택 > ", check);
+            System.err.printf("올바른 값을 입력해주세요 (종료 : '%s') 재 입력 > ", check);
         }
         return scanner.nextInt();
     }
 
     public String nextStringOrReplace(String comment, String check, String replace){
+        System.out.println(comment);
         String input = scanner.next();
         return input.equals(check) ? replace : input;
     }
