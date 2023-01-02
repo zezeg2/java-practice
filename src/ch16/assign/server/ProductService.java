@@ -49,9 +49,7 @@ public class ProductService {
              DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
             String findKeyword = in.readUTF();
             StringBuilder result = new StringBuilder();
-            for (Product p : productList.stream().filter(product -> product.name.equals(findKeyword)).toList()) {
-                result.append("\n").append(p.toString());
-            }
+            productList.stream().filter(product -> product.name.equals(findKeyword)).forEach(match -> result.append("\n").append(match));
             if (result.toString().equals("")) out.writeUTF("Not Found Product...");
             out.writeUTF(result.toString());
         }
