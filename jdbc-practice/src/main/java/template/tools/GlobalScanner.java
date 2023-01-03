@@ -43,7 +43,7 @@ public class GlobalScanner implements Closeable {
         System.out.print(comment);
         while (!scanner.hasNextInt()) {
             if (scanner.next().equalsIgnoreCase(check)) return replace;
-            System.err.printf("올바른 값을 입력해주세요 (종료 : '%s') 재 선택 > ", check);
+            System.err.printf("올바른 숫자를 입력해주세요 (종료 : '%s') 메뉴 입력 > ", check);
         }
         return scanner.nextInt();
     }

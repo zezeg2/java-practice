@@ -110,7 +110,6 @@ create table emp_man (select *
 select employee_id, first_name, department_id, job_id
 from dp_50
 union
--- all
 select employee_id, first_name, department_id, job_id
 from emp_man
 order by 1;
@@ -167,7 +166,12 @@ where l.city = 'seattle';
 
 select first_name, department_name
 from employees e
+         join departments d on e.department_id = d.department_id;
+
+select first_name, department_name
+from employees e
          left outer join departments d on e.department_id = d.department_id;
+
 select first_name, department_name
 from employees e
          right outer join departments d on e.department_id = d.department_id;
@@ -182,7 +186,7 @@ from employees e
 
 
 
-select inform.emp
+select inform.emp, inform.city
 from (select first_name emp, department_name dep, country_name country, region_name region, city
       from (employees e
           join departments d on e.department_id = d.department_id

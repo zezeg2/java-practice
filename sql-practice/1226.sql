@@ -1,4 +1,4 @@
-SET GLOBAL time_zone='+09:00';
+SET GLOBAL time_zone = '+09:00';
 SET time_zone = '+09:00';
 SELECT @@GLOBAL.time_zone, @@SESSION.time_zone, @@system_time_zone;
 set autocommit = false;
@@ -13,7 +13,9 @@ from emp_copy;
 
 insert into emp_copy (employee_id, first_name, last_name, salary, hire_date, department_id)
 values (1, 'jonghyeon', 'park', 100000, '2022-12-26', 10);
-select * from emp_copy where employee_id = 1;
+select *
+from emp_copy
+where employee_id = 1;
 insert into emp_copy (employee_id, first_name, last_name, salary, hire_date, department_id)
 values (3, 'jonghyeon', 'park', null, now(), null),
        (4, 'jonghyeon', 'park', null, now(), null),
@@ -103,6 +105,9 @@ alter table board2
 alter table board2
     modify writing_time datetime default now() not null;
 
+select *
+from information_schema.TABLE_CONSTRAINTS;
+
 alter table board2
     drop constraint fk_writer;
 
@@ -148,6 +153,7 @@ where salary = (select max(salary) from employees e2);
 select max(salary)
 from employees e
 group by department_id;
+
 select department_id, salary, first_name
 from employees e
 where department_id in (select department_id from employees where first_name = 'peter')
