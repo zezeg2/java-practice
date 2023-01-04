@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="jquery-3.6.1.js"></script>
+    <title>Title</title>
+    <script>
+      $(document).ready(() => {
+        $("form").on('submit', () => {
+          $("#role").val(['admin', 'administrator', 'administration'].includes($("#id").val()) ? 'admin' : 'user')
+          $("form").attr({action: 'loginProcess', method: 'post'})
+        })
+      })
+    </script>
+</head>
+<body>
+<form>
+    <span>아이디 입력 : <input type="text" id="id" name="id"><br></span>
+    <span>비밀번호 입력 : <input type="password" id="password" name="password"><br></span>
+    <input type="hidden" id="role" name="role">
+    <input type="submit" value="login">
+</form>
+</body>
+</html>
