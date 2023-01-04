@@ -5,7 +5,6 @@ import domain.members.dtos.AuthorizeMemberDTO;
 import domain.members.dtos.MemberDTO;
 import domain.members.dtos.UpdateMemberDTO;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +34,7 @@ public class UpdateMemberServlet extends MembersServlet {
             dao.updateMember(new UpdateMemberDTO(origin.id(), pw, email, phone, address));
             writer.println("유저정보 업데이트에 성공했습니다.");
         } catch (SQLException e) {
-
+            throw new RuntimeException(e);
         }
     }
 }

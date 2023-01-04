@@ -32,7 +32,7 @@ public class CreateMemberServlet extends MembersServlet {
             dao.createMember(new MemberDTO(id, pw, name, email, phone, address, null));
             writer.println("<h1>회원 등록 완료</h1>");
         } catch (SQLException e) {
-
+            throw new RuntimeException(e);
         }
     }
 }

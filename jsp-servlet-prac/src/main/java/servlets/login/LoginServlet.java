@@ -13,7 +13,6 @@ import java.util.Arrays;
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("text/html;charset=utf-8");
         String id = req.getParameter("id");
         String password = req.getParameter("password");
         String role = req.getParameter("role").equals("admin") ? "관리자" : "회원";
@@ -25,7 +24,7 @@ public class LoginServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         doGet(req, resp);
     }
 }

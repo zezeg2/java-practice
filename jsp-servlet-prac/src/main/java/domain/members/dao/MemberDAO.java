@@ -1,6 +1,6 @@
 package domain.members.dao;
 
-import connection.JDBCConnection;
+import connection.DataSourceProvider;
 import domain.members.dtos.AuthorizeMemberDTO;
 import domain.members.dtos.InfoMemberDTO;
 import domain.members.dtos.MemberDTO;
@@ -18,15 +18,15 @@ public class MemberDAO {
     private static MemberDAO instance;
     private static DataSource source;
 
-    public static MemberDAO getInstance() throws ClassNotFoundException, SQLException, NamingException {
+    public static MemberDAO getInstance() throws NamingException {
         if (instance == null) instance = new MemberDAO();
         return instance;
     }
 
     private final int COUNT_PER_PAGE = 3;
 
-    private MemberDAO() throws SQLException, NamingException, ClassNotFoundException {
-        source = JDBCConnection.getSource();
+    private MemberDAO() throws NamingException {
+        source = DataSourceProvider.getSource();
     }
 
     public boolean isExistId(String id) throws SQLException {
@@ -73,7 +73,6 @@ public class MemberDAO {
         rs.next();
         int totalCnt = rs.getInt(1);
         return (totalCnt - 1) / COUNT_PER_PAGE + 1;
-
     }
 
     public List<InfoMemberDTO> getAllMemberInfo(int page) throws SQLException {
@@ -143,6 +142,5 @@ public class MemberDAO {
                 return new MemberDTO(id, pw, name, email, phone, address, indate);
             } else throw new IncorrectPasswordException();
         } else throw new MemberNotFoundException();
-
     }
 }
