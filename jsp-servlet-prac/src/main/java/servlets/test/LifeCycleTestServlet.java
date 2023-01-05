@@ -2,7 +2,6 @@ package servlets.test;
 
 import io.reactivex.rxjava3.core.Observable;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet("/flow")
-public class FlowServlet extends HttpServlet {
+public class LifeCycleTestServlet extends HttpServlet {
 
     @Override
     public void init() {

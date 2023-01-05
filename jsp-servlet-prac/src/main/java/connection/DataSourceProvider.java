@@ -10,9 +10,9 @@ public class DataSourceProvider {
 
     public static DataSource getSource() throws  NamingException {
         if (source == null) {
-            Context initContext = new InitialContext();
-            Context envContext = (Context) initContext.lookup("java:/comp/env");
-            source = (DataSource) envContext.lookup("jdbc/mydb");
+            Context initContext = new InitialContext(); // context.xml 준비
+            Context envContext = (Context) initContext.lookup("java:/comp/env"); // context look up(JNDI 방식)
+            source = (DataSource) envContext.lookup("jdbc/mydb"); // envContext 에서 jdbc Connection Pool lookup
         }
 
         return source;

@@ -13,4 +13,8 @@
     <servlet-name>test</servlet-name>
     <url-pattern>/b</url-pattern>
   </servlet-mapping>
+
+  <session-config>
+    <session-timeout>10</session-timeout>
+  </session-config>
 </web-app>
